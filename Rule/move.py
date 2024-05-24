@@ -1,6 +1,6 @@
-from piece_move import (get_xiangqi_king_moves, get_xiangqi_guard_moves, get_xiangqi_elephant_moves,
-                        get_xiangqi_cannon_moves, get_xiangqi_knight_moves, get_xiangqi_rook_moves,
-                        get_xiangqi_pawn_moves)
+from Rule.MoveRule import (get_xiangqi_king_moves, get_xiangqi_guard_moves, get_xiangqi_elephant_moves,
+                      get_xiangqi_cannon_moves, get_xiangqi_knight_moves, get_xiangqi_rook_moves,
+                      get_xiangqi_pawn_moves)
 
 
 def move_piece(position, piece, state):
@@ -13,54 +13,54 @@ def move_piece(position, piece, state):
     move = []
 
     # todo: Red team
-    if piece == 'k_1':
+    if piece == 'ts1':
         move = get_xiangqi_king_moves(position, state, piece)
 
-    if piece == 'g_1':
+    if piece == 's11' or piece == 's21':
         move = get_xiangqi_guard_moves(position, state, piece)
 
-    if piece == 'h_1':
+    if piece == 'm11' or piece == 'm21':
         move = get_xiangqi_knight_moves(position, state, piece)
 
-    if piece == 'e_1':
+    if piece == 'tj11' or piece == 'tj21':
         move = get_xiangqi_elephant_moves(position, state, piece)
 
-    if piece == 'r_1':
+    if piece == 'x11' or piece == 'x21':
         move = get_xiangqi_rook_moves(position, state, piece)
 
-    if piece == 'c_1':
+    if piece == 'p11' or piece == 'p21':
         move = get_xiangqi_cannon_moves(position, state, piece)
 
-    if piece == 'p_1':
+    if piece == 'to11' or piece == 'to21' or piece == 'to31' or piece == 'to41' or piece == 'to51':
         move = get_xiangqi_pawn_moves(position, state, piece)
 
     # todo: Black team
-    if piece == 'k_2':
+    if piece == 'ts2':
         move = get_xiangqi_king_moves(position, state, piece)
 
-    if piece == 'g_2':
+    if piece == 's12' or piece == 's22':
         move = get_xiangqi_guard_moves(position, state, piece)
 
-    if piece == 'h_2':
+    if piece == 'm12' or piece == 'm22':
         move = get_xiangqi_knight_moves(position, state, piece)
 
-    if piece == 'e_2':
+    if piece == 'tj12' or piece == 'tj22':
         move = get_xiangqi_elephant_moves(position, state, piece)
 
-    if piece == 'r_2':
+    if piece == 'x12' or piece == 'x22':
         move = get_xiangqi_rook_moves(position, state, piece)
 
-    if piece == 'c_2':
+    if piece == 'p12' or piece == 'p22':
         move = get_xiangqi_cannon_moves(position, state, piece)
 
-    if piece == 'p_2':
+    if piece == 'to12' or piece == 'to22' or piece == 'to32' or piece == 'to42' or piece == 'to52':
         move = get_xiangqi_pawn_moves(position, state, piece)
 
     return (piece, move)
 
 
-red_pieces = ["k_1", "g_1", "h_1", "e_1", "r_1", "c_1", 'p_1']
-black_pieces = ["k_2", "g_2", "h_2", "e_2", "r_2", "c_2", 'p_2']
+red_pieces = ['to11', 'to21', 'to31', 'to41', 'to51', 'p11', 'p21', 'x11', 'm11', 'tj11', 's11', 'ts1', 's21', 'tj21', 'm21', 'x21']
+black_pieces = ['x12', 'm12', 'tj12', 's12', 'ts2', 's22', 'tj22', 'm22', 'x22', 'p12', 'p22', 'to12', 'to22', 'to32', 'to42', 'to52']
 
 
 def all_posible_moves(team, state):
