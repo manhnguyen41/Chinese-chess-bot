@@ -15,7 +15,8 @@ board = [
     ]
 
 game_state = GameState(board)
-for i in range(10):
-        print(board[i])
 moves = all_posible_moves(1, board)
 print(moves)
+game_state.next_state((6, 0), (5, 0))
+for i in range(10):
+        print(game_state.board[i])
