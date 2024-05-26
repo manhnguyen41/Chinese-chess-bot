@@ -1,9 +1,9 @@
 import os
 import pygame
 import sys
-from GameStateModule import GameState
+from State.GameStateModule import *
 from PIL import Image
-from MoveRule import *
+from Rule.MoveRule import *
 # Initialize Pygame
 pygame.init()
 
