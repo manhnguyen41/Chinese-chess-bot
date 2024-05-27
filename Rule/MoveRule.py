@@ -14,22 +14,28 @@ def get_xiangqi_king_moves(current_pos, state, name):
 
     # Possible king moves (up, down, left, right)
     directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    
+
     if name == 'ts2':
-        for i in range(row, 10, 1):
+        for i in range(row+1, 10, 1):
             if state[i][col] == '':
                 continue
-            if state[i][col] == 'ts1':
-                king_moves.append((i, col))
-                break
-                
+            else:
+                if state[i][col] == 'ts1':
+                    king_moves.append((i, col))
+                    break
+                else:
+                    break
+
     if name == 'ts1':
-        for i in range(row, -1, -1):
+        for i in range(row-1, -1, -1):
             if state[i][col] == '':
                 continue
-            if state[i][col] == 'ts2':
-                king_moves.append((i, col))
-                break
+            else:
+                if state[i][col] == 'ts2':
+                    king_moves.append((i, col))
+                    break
+                else:
+                    break
 
     for dr, dc in directions:
         new_row, new_col = row + dr, col + dc
@@ -300,7 +306,7 @@ def get_xiangqi_cannon_moves(current_pos, state, name):
     cross_over = []
 
     # todo: check row move
-    for i in range(1, 10):
+    for i in range(1, 10 + 1):  # ? i : 1 -> 9
         new_row = row + i
         if len(cross_over) == 0:
             if not check_board(new_row, col):
@@ -325,7 +331,7 @@ def get_xiangqi_cannon_moves(current_pos, state, name):
                 break
 
     # todo: check row move
-    for i in range(1, 10):
+    for i in range(1, 10 + 1):  # ? i : 1 -> 10
         new_row = row - i
         if len(cross_over) == 0:
             if not check_board(new_row, col):
@@ -350,7 +356,7 @@ def get_xiangqi_cannon_moves(current_pos, state, name):
                 break
 
     # todo: check col move
-    for i in range(1, 10):
+    for i in range(1, 9 + 1):  # ? i : 1 -> 9
         new_col = col + i
         if len(cross_over) == 0:
             if not check_board(row, new_col):
@@ -375,7 +381,7 @@ def get_xiangqi_cannon_moves(current_pos, state, name):
                 break
 
     # todo: check col move
-    for i in range(1, 10):
+    for i in range(1, 9 + 1):  # ? i : 1 -> 9
         new_col = col - i
         if len(cross_over) == 0:
             if not check_board(row, new_col):
