@@ -14,6 +14,22 @@ def get_xiangqi_king_moves(current_pos, state, name):
 
     # Possible king moves (up, down, left, right)
     directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    
+    if name == 'ts2':
+        for i in range(row, 10, 1):
+            if state[i][col] == '':
+                continue
+            if state[i][col] == 'ts1':
+                king_moves.append((i, col))
+                break
+                
+    if name == 'ts1':
+        for i in range(row, -1, -1):
+            if state[i][col] == '':
+                continue
+            if state[i][col] == 'ts2':
+                king_moves.append((i, col))
+                break
 
     for dr, dc in directions:
         new_row, new_col = row + dr, col + dc
