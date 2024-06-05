@@ -181,27 +181,35 @@ def get_xiangqi_pawn_moves(current_pos, state, name):
 
     if name == 'to11' or name == 'to21' or name == 'to31' or name == 'to41' or name == 'to51':
         if row <= 4:
-            if "1" not in color_position(state[row][left_col]) and check_board(row, left_col):
-                pawn_moves.append((row, left_col))
-            if "1" not in color_position(state[row][right_col]) and check_board(row, right_col):
-                pawn_moves.append((row, right_col))
-            if "1" not in color_position(state[forward_row][col]) and check_board(forward_row, col):
-                pawn_moves.append((forward_row, col))
+            if check_board(row, left_col):
+                if "1" not in color_position(state[row][left_col]):
+                    pawn_moves.append((row, left_col))
+            if check_board(row, right_col):        
+                if "1" not in color_position(state[row][right_col]):
+                    pawn_moves.append((row, right_col))
+            if check_board(forward_row, col):
+                if "1" not in color_position(state[forward_row][col]):
+                    pawn_moves.append((forward_row, col))
         if row > 4:
-            if "1" not in color_position(state[forward_row][col]) and check_board(forward_row, col):
-                pawn_moves.append((forward_row, col))
+            if check_board(forward_row, col):
+                if "1" not in color_position(state[forward_row][col]):
+                    pawn_moves.append((forward_row, col))
 
     if name == 'to12' or name == 'to22' or name == 'to32' or name == 'to42' or name == 'to52':
         if row >= 5:
-            if "2" not in color_position(state[row][left_col]) and check_board(row, left_col):
-                pawn_moves.append((row, left_col))
-            if "2" not in color_position(state[row][right_col]) and check_board(row, right_col):
-                pawn_moves.append((row, right_col))
-            if "2" not in color_position(state[forward_row][col]) and check_board(forward_row, col):
-                pawn_moves.append((forward_row, col))
+            if check_board(row, left_col):
+                if "2" not in color_position(state[row][left_col]):
+                    pawn_moves.append((row, left_col))
+            if check_board(row, right_col):
+                if "2" not in color_position(state[row][right_col]):
+                    pawn_moves.append((row, right_col))
+            if check_board(forward_row, col):
+                if "2" not in color_position(state[forward_row][col]):
+                    pawn_moves.append((forward_row, col))
         if row < 5:
-            if "2" not in color_position(state[forward_row][col]) and check_board(forward_row, col):
-                pawn_moves.append((forward_row, col))
+            if check_board(forward_row, col):
+                if "2" not in color_position(state[forward_row][col]):
+                    pawn_moves.append((forward_row, col))
 
     return pawn_moves
 
