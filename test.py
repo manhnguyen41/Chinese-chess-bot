@@ -17,13 +17,20 @@ board = [
     ]
 
 game_state = GameState(board)
-#moves = all_posible_moves(1, game_state.board)
-#move_key = list(moves.keys())
-#move_value = list(moves.values())
-#for i in range(len(move_value)):
-#    for j in range(len(move_value[i][1])):
-#        print("name = " , move_key[i][0], "curPos = " ,  list(move_key[i][1]))
-#        print("name = " , move_value[i][0], "toPos = " ,  list(move_value[i][1][j]))
+#print(all_posible_moves(1,game_state.board))
+moves = all_posible_moves(1, game_state.board)
+move_key = list(moves.keys())
+move_value = list(moves.values())
+for i in range(len(move_value)):
+    for j in range(len(move_value[i][1])):
+        print("name = " , move_key[i][0], "curPos = " ,  list(move_key[i][1]))
+        print("name = " , move_value[i][0], "toPos = " ,  list(move_value[i][1][j]))
+        
+        state.board[nextMove[0]][nextMove[1]] = state.board[curMove[0]][curMove[1]] 
+        state.board[curMove[0]][curMove[1]] = ""
+        move_point = AB(state,depth - 1, -9999, 9999, True)
+        state.board[curMove[0]][curMove[1]] = state.board[nextMove[0]][nextMove[1]]  
+        state.board[nextMove[0]][nextMove[1]] = ""
 
 #a = list(move_key[0][1])
 #for i in range(len(move_key)):
@@ -41,8 +48,9 @@ game_state = GameState(board)
 #comptuteNextMove(game_state)
 
 
-bestmove = find_best_move(game_state,1,True)
+#bestmove = find_best_move(game_state,1,True)
 #print(board)
-print(bestmove)
+#print(bestmove)
+#print(heuristic(board))
 
 
