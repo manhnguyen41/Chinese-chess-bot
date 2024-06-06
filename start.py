@@ -43,17 +43,17 @@ def start_screen():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if option1_button_rect.collidepoint(event.pos):
                     running = False  
-                    open_choosing_algo_window("AI_Human")
+                    open_choosing_algo_window("AI - Human")
                 elif option2_button_rect.collidepoint(event.pos):
                     running = False  
-                    open_choosing_algo_window("Human_Human")
+                    open_choosing_algo_window("AI - AI")
 
         # Draw background
         screen.blit(backgroundImage, (0, 0))
 
         # Draw and render buttons
         render_button(option1_button_rect, "AI - Human", hover=option1_button_rect.collidepoint(pygame.mouse.get_pos()))
-        render_button(option2_button_rect, "Human - Human", hover=option2_button_rect.collidepoint(pygame.mouse.get_pos()))
+        render_button(option2_button_rect, "AI - AI", hover=option2_button_rect.collidepoint(pygame.mouse.get_pos()))
 
         pygame.display.flip()
 
@@ -62,7 +62,10 @@ def start_screen():
 
 def open_choosing_algo_window(mode):
     python_path = sys.executable
-    subprocess.Popen([python_path, "ChooseAlgo.py", mode])
+    if mode == "AI - Human":
+        subprocess.Popen([python_path, "ChooseAlgo.py", mode])
+    elif mode == "AI - AI":
+        subprocess.Popen([python_path, "ChooseAlgoAI1.py", mode])
 
 if __name__ == "__main__":
     start_screen()
