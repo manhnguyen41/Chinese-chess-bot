@@ -181,26 +181,26 @@ def get_xiangqi_pawn_moves(current_pos, state, name):
 
     if name == 'to11' or name == 'to21' or name == 'to31' or name == 'to41' or name == 'to51':
         if row <= 4:
-            if "1" not in color_position(state[row][left_col]) and check_board(row, left_col):
+            if check_board(row, left_col) and "1" not in color_position(state[row][left_col]) :
                 pawn_moves.append((row, left_col))
-            if "1" not in color_position(state[row][right_col]) and check_board(row, right_col):
+            if check_board(row, right_col) and "1" not in color_position(state[row][right_col]) :
                 pawn_moves.append((row, right_col))
-            if "1" not in color_position(state[forward_row][col]) and check_board(forward_row, col):
+            if check_board(forward_row, col) and "1" not in color_position(state[forward_row][col]):
                 pawn_moves.append((forward_row, col))
         if row > 4:
-            if "1" not in color_position(state[forward_row][col]) and check_board(forward_row, col):
+            if  check_board(forward_row, col) and "1" not in color_position(state[forward_row][col]) :
                 pawn_moves.append((forward_row, col))
 
     if name == 'to12' or name == 'to22' or name == 'to32' or name == 'to42' or name == 'to52':
         if row >= 5:
-            if "2" not in color_position(state[row][left_col]) and check_board(row, left_col):
+            if check_board(row, left_col) and "2" not in color_position(state[row][left_col]) :
                 pawn_moves.append((row, left_col))
-            if "2" not in color_position(state[row][right_col]) and check_board(row, right_col):
+            if check_board(row, right_col) and "2" not in color_position(state[row][right_col]) :
                 pawn_moves.append((row, right_col))
-            if "2" not in color_position(state[forward_row][col]) and check_board(forward_row, col):
+            if  check_board(forward_row, col) and "2" not in color_position(state[forward_row][col]) :
                 pawn_moves.append((forward_row, col))
         if row < 5:
-            if "2" not in color_position(state[forward_row][col]) and check_board(forward_row, col):
+            if check_board(forward_row, col) and "2" not in color_position(state[forward_row][col]):
                 pawn_moves.append((forward_row, col))
 
     return pawn_moves
@@ -329,6 +329,12 @@ def get_xiangqi_cannon_moves(current_pos, state, name):
                 cross_over.pop()
                 cannon_moves.append((new_row, col))
                 break
+            if '2' in color_position(state[new_row][col]) and (name == "p12" or name == "p22"):
+                cross_over.pop()
+                break
+            if '1' in color_position(state[new_row][col]) and (name == "p11" or name == "p21"):
+                cross_over.pop()
+                break
 
     # todo: check row move
     for i in range(1, 10 + 1):  # ? i : 1 -> 10
@@ -353,6 +359,12 @@ def get_xiangqi_cannon_moves(current_pos, state, name):
             if '2' in color_position(state[new_row][col]) and (name == "p11" or name == "p21"):
                 cross_over.pop()
                 cannon_moves.append((new_row, col))
+                break
+            if '2' in color_position(state[new_row][col]) and (name == "p12" or name == "p22"):
+                cross_over.pop()
+                break
+            if '1' in color_position(state[new_row][col]) and (name == "p11" or name == "p21"):
+                cross_over.pop()
                 break
 
     # todo: check col move
@@ -379,6 +391,12 @@ def get_xiangqi_cannon_moves(current_pos, state, name):
                 cross_over.pop()
                 cannon_moves.append((row, new_col))
                 break
+            if '2' in color_position(state[row][new_col]) and (name == "p12" or name == "p22"):
+                cross_over.pop()
+                break
+            if '1' in color_position(state[row][new_col]) and (name == "p11" or name == "p21"):
+                cross_over.pop()
+                break
 
     # todo: check col move
     for i in range(1, 9 + 1):  # ? i : 1 -> 9
@@ -404,9 +422,14 @@ def get_xiangqi_cannon_moves(current_pos, state, name):
                 cross_over.pop()
                 cannon_moves.append((row, new_col))
                 break
+            if '2' in color_position(state[row][new_col]) and (name == "p12" or name == "p22"):
+                cross_over.pop()
+                break
+            if '1' in color_position(state[row][new_col]) and (name == "p11" or name == "p21"):
+                cross_over.pop()
+                break
 
     return cannon_moves
-
 
 def check_palace(row, col):
     if 3 <= col <= 5 and 0 <= row <= 2:

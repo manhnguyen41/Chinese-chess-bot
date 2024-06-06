@@ -1,10 +1,9 @@
 from State.GameStateModule import *
 from Rule.move import *
-from Heuristic import *
+from evaluate_board import *
 
 def AB(state: GameState, depth, alpha, beta, isMax):
     if(depth == 0):
-        print(state.board)
         return heuristic(state.board)
     moves = all_posible_moves(2 if isMax == True else 1, state.board)
     if(isMax):
@@ -16,15 +15,16 @@ def AB(state: GameState, depth, alpha, beta, isMax):
                 movePieceName = move_key[i][0]
                 curMove = list(move_key[i][1])
                 nextMove = list(move_value[i][1][j])
-                game = GameState(state.board)
-                game.board[nextMove[0]][nextMove[1]] = game.board[curMove[0]][curMove[1]] 
-                game.board[curMove[0]][curMove[1]] = ""
-                eval = AB(game,depth - 1,alpha,beta,not isMax)
-                game.board = state.board
+                temp = state.board[nextMove[0]][nextMove[1]]
+                state.board[nextMove[0]][nextMove[1]] = state.board[curMove[0]][curMove[1]]
+                state.board[curMove[0]][curMove[1]] = ""
+                eval = AB(state,depth - 1,alpha,beta, not isMax)
+                state.board[curMove[0]][curMove[1]] = state.board[nextMove[0]][nextMove[1]]
+                state.board[nextMove[0]][nextMove[1]] = temp
                 bestMove = max(bestMove,eval)
-                alpha = max(alpha,eval)
+                alpha = max(alpha,bestMove)
                 if beta <= alpha :
-                    break
+                    return bestMove
         return bestMove
     else:
         bestMove = 9999
@@ -34,15 +34,17 @@ def AB(state: GameState, depth, alpha, beta, isMax):
             for j in range(len(move_value[i][1])):
                 movePieceName = move_key[i][0]
                 curMove = list(move_key[i][1])
-                game = GameState(state.board)
-                game.board[nextMove[0]][nextMove[1]] = game.board[curMove[0]][curMove[1]] 
-                game.board[curMove[0]][curMove[1]] = ""
-                eval = AB(game,depth - 1,alpha,beta,not isMax)
-                game.board = state.board
+                nextMove = list(move_value[i][1][j])
+                temp = state.board[nextMove[0]][nextMove[1]]
+                state.board[nextMove[0]][nextMove[1]] = state.board[curMove[0]][curMove[1]]
+                state.board[curMove[0]][curMove[1]] = ""
+                eval = AB(state,depth - 1,alpha,beta, not isMax)
+                state.board[curMove[0]][curMove[1]] = state.board[nextMove[0]][nextMove[1]]
+                state.board[nextMove[0]][nextMove[1]] = temp
                 bestMove = min(bestMove,eval)
-                alpha = min(alpha,eval)
+                beta = min(beta,bestMove)
                 if beta <= alpha :
-                    break
+                    return bestMove
         return bestMove
 
 def find_best_move(state : GameState,depth,isMax):
@@ -56,8 +58,13 @@ def find_best_move(state : GameState,depth,isMax):
             movePieceName = move_key[i][0]
             curMove = list(move_key[i][1])
             nextMove = list(move_value[i][1][j])
-            move_point = AB(state,depth - 1, -9999, 9999, True)
-            if move_point > bestValue :
+            temp = state.board[nextMove[0]][nextMove[1]]
+            state.board[nextMove[0]][nextMove[1]] = state.board[curMove[0]][curMove[1]]
+            state.board[curMove[0]][curMove[1]] = ""
+            move_point = AB(state,depth - 1, -99999, 99999, not isMax)
+            state.board[curMove[0]][curMove[1]] = state.board[nextMove[0]][nextMove[1]]
+            state.board[nextMove[0]][nextMove[1]] = temp
+            if move_point >= bestValue :
                 bestValue = move_point
                 bestMove = [curMove,nextMove]
     return bestMove
@@ -104,14 +111,3 @@ def comptuteNextMove(curr_state):
     movePiece = evalResult[1][0]
     return [movePiece, evalResult[1][1]]
 """
-
-
-
-
-
-    
-        
-
-
-
-
