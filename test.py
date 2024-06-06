@@ -1,5 +1,7 @@
 from Rule.move import all_posible_moves
 from State.GameStateModule import GameState
+from Heuristic import *
+from ABPruning import *
 
 board = [
         ["x12", "m12", "tj12", "s12", "ts2", "s22", "tj22", "m22", "x22"],
@@ -15,8 +17,32 @@ board = [
     ]
 
 game_state = GameState(board)
-moves = all_posible_moves(1, board)
-print(moves)
-game_state.next_state((6, 0), (5, 0))
-for i in range(10):
-        print(game_state.board[i])
+#moves = all_posible_moves(1, game_state.board)
+#move_key = list(moves.keys())
+#move_value = list(moves.values())
+#for i in range(len(move_value)):
+#    for j in range(len(move_value[i][1])):
+#        print("name = " , move_key[i][0], "curPos = " ,  list(move_key[i][1]))
+#        print("name = " , move_value[i][0], "toPos = " ,  list(move_value[i][1][j]))
+
+#a = list(move_key[0][1])
+#for i in range(len(move_key)):
+        #print("name = " , move_key[i][0], "toPos = " ,  list(move_key[i][1]))
+
+#board1 = game_state.board 
+
+#game_state.board[list(move_key[0][1])[0]][list(move_key[0][1])[1]] = game_state.board[list(move_value[0][1][0])[0]][list(move_value[0][1][0])[1]]
+#print(game_state.board)
+#game_state.board
+
+#print(list(move_value))
+#print(heuristic(board))
+
+#comptuteNextMove(game_state)
+
+
+bestmove = find_best_move(game_state,1,True)
+#print(board)
+print(bestmove)
+
+

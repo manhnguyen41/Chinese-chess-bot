@@ -6,6 +6,7 @@ from PIL import Image
 from Rule.MoveRule import *
 from Rule.move import *
 from MCTS.mcts import *
+from ABPruning import *
 
 # Initialize Pygame
 pygame.init()
@@ -316,14 +317,14 @@ def main():
             time_left_player2 = max(time_limit - elapsed_time_player2, 0)
 
             num_iterations = 1000
-
-            # Chạy MCTS để tìm trạng thái tiếp theo tốt nhất
+            # Chạy AB để tìm trạng thái tiếp theo tốt nhất
             game_state = GameState(board)
-            new_state = mcts(game_state, num_iterations)
-            new_board = new_state.board
-            board = new_board
+            print(game_state.board)
+            old_board = game_state.board
+            bestmove = find_best_move(game_state,1,True)
+            game_state.next_state(bestmove[0],bestmove[1])
+            print(game_state.board)
             current_player = '1'
-
 
 
         screen.fill((255, 255, 255))
