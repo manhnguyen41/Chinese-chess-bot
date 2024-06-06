@@ -1,12 +1,13 @@
 #Game state class
 class GameState:
     def __init__(self, board):
-        self.current_player = 'red'
+        self.current_player = 'black'
         self.board_dict = self.convert_dict(board)
         self.board = board
+        self.num_moves = 0  # Thêm thuộc tính để đếm số lượt di chuyển
 
     def switch_player(self):
-        self.current_player = 'black' if self.current_player == 'red' else 'red'
+        self.current_player = 'red' if self.current_player == 'black' else 'black'
 
     def print_turn_player(self):
         print(self.current_player)
@@ -31,3 +32,4 @@ class GameState:
         tmp = self.board[old_position[0]][old_position[1]]
         self.board[old_position[0]][old_position[1]] = ''
         self.board[next_position[0]][next_position[1]] = tmp
+        self.num_moves += 1  # Cập nhật số lượt di chuyển sau mỗi nước đi
