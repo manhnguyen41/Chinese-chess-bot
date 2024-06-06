@@ -1,1 +1,1 @@
-m12
+bestmove

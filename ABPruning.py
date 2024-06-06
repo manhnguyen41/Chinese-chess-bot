@@ -63,10 +63,10 @@ def find_best_move(state,depth,isMax):
             state.board = curBoard
             if move_point > bestValue :
                 bestValue = move_point
-                bestMove = [movePieceName,nextMove]
+                bestMove = [curMove,nextMove]
     return bestMove
 
-"""
+
 def recurseEvaluation(state : GameState,depth,alpha,beta):
     isMax = state.current_player == "black"
     if depth == 0:
@@ -88,7 +88,6 @@ def recurseEvaluation(state : GameState,depth,alpha,beta):
             state.board = curBoard
             nextEvals.append(evalResult)
             if isMax : 
-                print(evalResult)               
                 alpha = max(alpha, evalResult[0])
                 if beta <= alpha :
                     return evalResult
@@ -107,9 +106,8 @@ def recurseEvaluation(state : GameState,depth,alpha,beta):
 def comptuteNextMove(curr_state):
     evalResult = recurseEvaluation(curr_state, 1, -99999999, 99999999)
     movePiece = evalResult[1][0]
-    print(evalResult)
     return [movePiece, evalResult[1][1]]
-"""
+
 
 
 
