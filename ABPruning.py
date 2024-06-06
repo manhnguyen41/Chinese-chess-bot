@@ -7,7 +7,6 @@ def AB(state: GameState, depth, alpha, beta, isMax):
         return heuristic(state.board)
     moves = all_posible_moves(2 if isMax == True else 1, state.board)
     if(isMax):
-        print("MAXXXXXXX")
         bestMove = -9999
         move_key = list(moves.keys())
         move_value = list(moves.values())
@@ -23,12 +22,11 @@ def AB(state: GameState, depth, alpha, beta, isMax):
                 state.board[curMove[0]][curMove[1]] = state.board[nextMove[0]][nextMove[1]]  
                 state.board[nextMove[0]][nextMove[1]] = temp
                 bestMove = max(bestMove,eval)
-                alpha = max(alpha,eval)
+                alpha = max(alpha,bestMove)
                 if beta <= alpha :
                     break
         return bestMove
     else:
-        print("MINNNNNN")
         bestMove = 9999
         move_key = list(moves.keys())
         move_value = list(moves.values())
@@ -44,7 +42,7 @@ def AB(state: GameState, depth, alpha, beta, isMax):
                 state.board[curMove[0]][curMove[1]] = state.board[nextMove[0]][nextMove[1]]  
                 state.board[nextMove[0]][nextMove[1]] = temp
                 bestMove = min(bestMove,eval)
-                alpha = min(alpha,eval)
+                alpha = min(alpha,bestMove)
                 if beta <= alpha :
                     break
         return bestMove
@@ -53,24 +51,19 @@ def find_best_move(state : GameState,depth,isMax):
     bestMove = None
     bestValue = -9999
     moves = all_posible_moves(2 if isMax == True else 1, state.board)
-    print(moves)
     move_key = list(moves.keys())
     move_value = list(moves.values())
     for i in range(len(move_value)):
         for j in range(len(move_value[i][1])):
-            print(i,j)
             movePieceName = move_key[i][0]
             curMove = list(move_key[i][1])
             nextMove = list(move_value[i][1][j])
-            print(movePieceName,curMove,nextMove)
             temp = state.board[nextMove[0]][nextMove[1]]
             state.board[nextMove[0]][nextMove[1]] = state.board[curMove[0]][curMove[1]] 
             state.board[curMove[0]][curMove[1]] = ""
             move_point = AB(state,depth - 1, -99999, 99999, True)
             state.board[curMove[0]][curMove[1]] = state.board[nextMove[0]][nextMove[1]]  
             state.board[nextMove[0]][nextMove[1]] = temp
-            print(state.board)
-            print(" ")        
             if move_point > bestValue :
                 bestValue = move_point
                 bestMove = [curMove,nextMove]
