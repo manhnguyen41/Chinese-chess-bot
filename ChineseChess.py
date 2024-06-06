@@ -320,7 +320,7 @@ def main():
             # Chạy AB để tìm trạng thái tiếp theo tốt nhất
             game_state = GameState(board)
             print(game_state.board)
-            bestmove = find_best_move(game_state,1,True)
+            bestmove = find_best_move(game_state,3,True)
             print(bestmove[0],bestmove[1])
             game_state.next_state(bestmove[0],bestmove[1])
             current_player = '1'
