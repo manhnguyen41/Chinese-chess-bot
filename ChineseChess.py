@@ -317,11 +317,13 @@ def main():
             time_left_player2 = max(time_limit - elapsed_time_player2, 0)
 
             num_iterations = 1000
-            # Chạy MCTS để tìm trạng thái tiếp theo tốt nhất
+            # Chạy AB để tìm trạng thái tiếp theo tốt nhất
             game_state = GameState(board)
+            print(game_state.board)
             old_board = game_state.board
             bestmove = find_best_move(game_state,1,True)
             game_state.next_state(bestmove[0],bestmove[1])
+            print(game_state.board)
             current_player = '1'
 
 
