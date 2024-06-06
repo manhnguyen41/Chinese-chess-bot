@@ -1,6 +1,9 @@
 import math  # Import thư viện toán học
 import random  # Import thư viện random để sinh số ngẫu nhiên
 import copy  # Import thư viện copy để tạo bản sao sâu của đối tượng
+
+from MCTS.evaluate_board import get_piece_value
+from MCTS.greedy import greedy_best_move
 from State.GameStateModule import GameState  # Import class GameState từ module State.GameStateModule
 from Rule.move import *  # Import tất cả các hàm từ module Rule.move
 
@@ -46,7 +49,6 @@ def generate_next_states(state):
         # Nếu trạng thái là một đối tượng GameState, lấy thuộc tính board
         board = state.board
 
-    # Tiếp theo, chúng ta tiến hành tạo ra các trạng thái tiếp theo dựa trên bảng
     possible_moves = all_posible_moves(2, board)  # Chỉ xem xét lượt của đội đen (team = 2)
 
     for piece, moves in possible_moves.items():
@@ -62,20 +64,70 @@ def generate_next_states(state):
 
     return next_states
 
-
 def simulate(state):
-    # trả về một số ngẫu nhiên từ 0 đến 1
-    return random.uniform(0, 1)
+    copy_state = copy.deepcopy(state)
 
+    while not is_terminal(copy_state):
+        player = 1 if copy_state.current_player == 'red' else 2
+        copy_state = greedy_best_move(player, copy_state)
+        copy_state.current_player = 'red' if player == 2 else 'black'
+        if is_draw(copy_state):
+            return 0  # Trò chơi hòa
 
+    if is_king_captured(copy_state.board, 1):
+        return 1  # Người chơi 2 thắng
+    elif is_king_captured(copy_state.board, 2):
+        return -1  # Người chơi 1 thắng
+
+def get_result(state):
+    if is_king_captured(state.board, 1):
+        return 1  # Người chơi 2 thắng
+    elif is_king_captured(state.board, 2):
+        return -1  # Người chơi 1 thắng
+    elif is_draw(state):
+        return 0  # Trò chơi hòa
+
+def evaluate_state(state):
+    # Đánh giá giá trị của trạng thái dựa trên trọng số của các quân cờ
+    total_evaluation = 0
+    for i in range(10):
+        for j in range(9):
+            total_evaluation += get_piece_value(state.board[i][j], i, j)
+    return total_evaluation
+
+def is_king_captured(board, player):
+    """
+    Kiểm tra xem quân tướng của người chơi có còn trên bàn cờ hay không.
+
+    Args:
+    - board: danh sách 2D đại diện cho bàn cờ
+    - player: người chơi (1 hoặc 2)
+
+    Returns:
+    - True nếu quân tướng đã bị bắt, False nếu còn trên bàn cờ
+    """
+    king_piece = f"ts{player}"
+    for row in board:
+        if king_piece in row:
+            return False
+    return True
+
+def is_draw(state):
+    # Trò chơi kết thúc hòa nếu không còn nước đi hợp lệ hoặc đã đi quá 100 nước
+    return (not any(all_posible_moves(1, state.board).values()) and
+            not any(all_posible_moves(2, state.board).values())) or state.num_moves >= 100
 def is_terminal(state):
-    # Kiểm tra xem trò chơi đã đạt đến trạng thái kết thúc chưa
-    # Trong Xiangqi, trò chơi kết thúc nếu một trong hai vua bị bắt hoặc không còn nước đi hợp lệ nào cho bất kỳ quân cờ nào.
-    # Ở đây, bạn có thể định nghĩa các điều kiện của riêng mình cho một trạng thái kết thúc dựa trên luật của Xiangqi.
-    red_king_captured = 'ts1' not in state.board_dict
-    black_king_captured = 'ts2' not in state.board_dict
-    return red_king_captured or black_king_captured or not any(generate_next_states(state))
+    """
+    Kiểm tra nếu trò chơi đã kết thúc.
 
+    Args:
+    - state: trạng thái của trò chơi, bao gồm bàn cờ và thông tin khác
+
+    Returns:
+    - True nếu trò chơi đã kết thúc, False nếu không
+    """
+    board = state.board
+    return is_king_captured(board, 1) or is_king_captured(board, 2)
 
 def backpropagate(node, score):
     # Truyền lại kết quả mô phỏng lên cây
@@ -94,7 +146,7 @@ def mcts(state, num_iterations):
         if not node.children and not node.is_fully_expanded():
             node.expand()
             if node.children:  # Kiểm tra xem có sinh ra các node con không
-                selected_child = random.choice(node.children)
+                selected_child = greedy_best_move(2, node.children)
                 score = simulate(selected_child.state)
                 backpropagate(selected_child, score)
         elif node.children:  # Kiểm tra xem có các node con không để tránh lỗi NoneType
@@ -106,7 +158,6 @@ def mcts(state, num_iterations):
         return best_child.state
     else:
         return state  # Trả về trạng thái ban đầu nếu không có node con nào được sinh ra
-
 
 def main():
     # Định nghĩa trạng thái ban đầu ở đây
@@ -123,18 +174,14 @@ def main():
         ["x11", "m11", "tj11", "s11", "ts1", "s21", "tj21", "m21", "x21"],
     ]
 
-    # Đặt số lần lặp cho MCTS
+    state = GameState(initial_state)
+
+    # Số lần lặp của MCTS
     num_iterations = 100
 
-    game_state = GameState(initial_state)
-    # Chạy MCTS để tìm trạng thái tiếp theo tốt nhất
-    best_next_state = mcts(game_state, num_iterations)
-
-    # In bảng cập nhật
-    print("Bảng cập nhật sau nước đi:", best_next_state.board)
-
-
+    # Chạy MCTS để tìm nước đi tốt nhất
+    best_state = mcts(state, num_iterations)
+    print(best_state.board)
 
 if __name__ == "__main__":
     main()
-

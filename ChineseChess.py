@@ -1,6 +1,8 @@
 import os
 import pygame
 import sys
+
+from MCTS.greedy import greedy_best_move
 from State.GameStateModule import *
 from PIL import Image
 from Rule.MoveRule import *
@@ -315,9 +317,10 @@ def main():
             elapsed_time_player2 -= elapsed_time_player1
             time_left_player2 = max(time_limit - elapsed_time_player2, 0)
 
-            num_iterations = 1000
+
 
             # Chạy MCTS để tìm trạng thái tiếp theo tốt nhất
+            num_iterations = 1000
             game_state = GameState(board)
             new_state = mcts(game_state, num_iterations)
             new_board = new_state.board
