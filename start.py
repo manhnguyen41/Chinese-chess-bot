@@ -14,7 +14,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Welcome to Chinese Chess game")
 
 # Upload background image
-backgroundImage = pygame.image.load("image/background.jpg").convert()
+backgroundImage = pygame.image.load("View/image/background.jpg").convert()
 backgroundWidth = 600
 backgroundHeight = 700
 # Convert size of background image
@@ -42,10 +42,10 @@ def start_screen():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if option1_button_rect.collidepoint(event.pos):
-                    running = False  
+                    running = False
                     open_choosing_algo_window("AI - Human")
                 elif option2_button_rect.collidepoint(event.pos):
-                    running = False  
+                    running = False
                     open_choosing_algo_window("AI - AI")
 
         # Draw background
@@ -63,9 +63,9 @@ def start_screen():
 def open_choosing_algo_window(mode):
     python_path = sys.executable
     if mode == "AI - Human":
-        subprocess.Popen([python_path, "ChooseAlgo.py", mode])
+        subprocess.Popen([python_path, "View/ChooseAlgo.py", mode])
     elif mode == "AI - AI":
-        subprocess.Popen([python_path, "ChooseAlgoAI.py", mode])
+        subprocess.Popen([python_path, "View/ChooseAlgoAI.py", mode])
 
 if __name__ == "__main__":
     start_screen()

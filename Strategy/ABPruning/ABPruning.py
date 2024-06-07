@@ -1,6 +1,6 @@
 from State.GameStateModule import *
 from Rule.move import *
-from evaluate_board import *
+from Heuristic.evaluate_board import *
 
 def AB(state: GameState, depth, alpha, beta, isMax):
     if(depth == 0):

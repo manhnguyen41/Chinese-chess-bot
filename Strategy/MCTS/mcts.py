@@ -3,8 +3,8 @@ import math
 import random
 import copy
 
-from evaluate_board import get_piece_value
-from MCTS.greedy import greedy_best_move
+from Heuristic.evaluate_board import get_piece_value
+from Strategy.Greedy.greedy import greedy_best_move
 from State.GameStateModule import GameState
 from Rule.move import *
 

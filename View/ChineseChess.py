@@ -2,13 +2,10 @@ import os
 import pygame
 import sys
 
-from MCTS.greedy import greedy_best_move
-from State.GameStateModule import *
+from Strategy.Minimax.Minimax import find_best_move_minimax
 from PIL import Image
-from Rule.MoveRule import *
-from Rule.move import *
-from MCTS.mcts import *
-from ABPruning import *
+from Strategy.MCTS.mcts import *
+from Strategy.ABPruning.ABPruning import *
 
 # Initialize Pygame
 pygame.init()
@@ -326,7 +323,7 @@ def main():
                 current_player = '1'
 
             if algo == 'MCTS':
-                num_iterations = 100
+                num_iterations = 50
                 game_state = GameState(board)
                 new_state = mcts(game_state, num_iterations)
                 new_board = new_state.board
@@ -337,6 +334,12 @@ def main():
                 game_state = GameState(board)
                 bestmove = find_best_move(game_state,3,True)
                 game_state.next_state(bestmove[0],bestmove[1])
+                current_player = '1'
+
+            if algo == 'Minimax':
+                game_state = GameState(board)
+                bestmove = find_best_move_minimax(game_state, 3, True)
+                game_state.next_state(bestmove[0], bestmove[1])
                 current_player = '1'
 
         screen.fill((255, 255, 255))

@@ -2,13 +2,9 @@ import os
 import pygame
 import sys
 
-from MCTS.greedy import greedy_best_move
-from State.GameStateModule import *
 from PIL import Image
-from Rule.MoveRule import *
-from Rule.move import *
-from MCTS.mcts import *
-from ABPruning import *
+from Strategy.MCTS.mcts import *
+from Strategy.ABPruning.ABPruning import *
 
 # Initialize Pygame
 pygame.init()
@@ -327,6 +323,12 @@ def main():
                 board = new_state.board
                 current_player = '2'
 
+            if algo == 'Alpha-Beta vs Alpha-Beta':
+                game_state = GameState(board)
+                bestmove = find_best_move(game_state, 3, False) #Chinh depth cho player 1
+                game_state.next_state(bestmove[0], bestmove[1])
+                current_player = '2'
+
         else: # lượt chơi người thứ 2
             elapsed_time_player2 = (pygame.time.get_ticks() - start_ticks_player2) // 1000
             elapsed_time_player2 -= elapsed_time_player1
@@ -346,6 +348,12 @@ def main():
                 board = new_board
                 current_player = '1'
                 print(new_board)
+
+            if algo == 'Alpha-Beta vs Alpha-Beta':
+                game_state = GameState(board)
+                bestmove = find_best_move(game_state, 2, True) #Chinh depth cho player 2
+                game_state.next_state(bestmove[0], bestmove[1])
+                current_player = '1'
 
             # game_state = GameState(board)
             # bestmove = find_best_move(game_state,3,True)

@@ -1,4 +1,4 @@
-from evaluate_board import heuristic
+from Heuristic.evaluate_board import heuristic
 from Rule.move import all_posible_moves
 from State.GameStateModule import GameState
 
