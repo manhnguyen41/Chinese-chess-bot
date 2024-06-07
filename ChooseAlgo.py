@@ -71,13 +71,9 @@ def open_file(file_path):
 
 #Def to navigate to file of corresponding algorithms
 def open_chinese_chess_window(mode):
-    if mode == "Greedy":
-        file_path = "ChineseChess.py" #Modify the right path here
-    if mode == "Alpha-Beta Search":
-        file_path = "ChineseChess.py" #Modify the right path here
-    elif mode == "MCTS":
-        file_path = "ChineseChess.py" #Mofidy the right path here
-    
+    python_path = sys.executable
+    subprocess.run([python_path, "ChineseChess.py", mode])
+    file_path = "ChineseChess.py"
     open_file(file_path)
 
 def open_file(file_path):

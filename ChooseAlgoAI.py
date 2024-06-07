@@ -5,14 +5,13 @@ import sys
 # Initialize the window start
 pygame.init()
 
-algo_AI1 = sys.argv[1]  #Algorithm of AI 1
 # Declare constants
 WIDTH, HEIGHT = 600, 700
 BUTTON_WIDTH, BUTTON_HEIGHT = WIDTH // 2.5, HEIGHT // 9.5
 
 # Create the screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Choosing algorithm of AI 2")
+pygame.display.set_caption("Choosing algorithm of AI 1")
 
 # Upload background image
 backgroundImage = pygame.image.load("image/background.jpg").convert()
@@ -45,21 +44,21 @@ def start_screen():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if algo1_button_rect.collidepoint(event.pos):
                     running = False  
-                    open_chinese_chess_window("Greedy")
+                    open_choosing_algo_AI_window("Greedy vs Alpha-Beta Search")
                 if algo2_button_rect.collidepoint(event.pos):
                     running = False  
-                    open_chinese_chess_window("Alpha-Beta Search")
+                    open_choosing_algo_AI_window("MCTS vs Greedy")
                 if algo3_button_rect.collidepoint(event.pos):
                     running = False  
-                    open_chinese_chess_window("MCTS")
+                    open_choosing_algo_AI_window("MCTS vs Alpha-Beta Search")
 
         # Draw background
         screen.blit(backgroundImage, (0, 0))
 
         # Draw and render buttons
-        render_button(algo1_button_rect, "Greedy", hover=algo1_button_rect.collidepoint(pygame.mouse.get_pos()))
-        render_button(algo2_button_rect, "Alpha-Beta Search", hover=algo2_button_rect.collidepoint(pygame.mouse.get_pos()))
-        render_button(algo3_button_rect, "MCTS", hover=algo3_button_rect.collidepoint(pygame.mouse.get_pos()))
+        render_button(algo1_button_rect, "Greedy vs Alpha-Beta Search", hover=algo1_button_rect.collidepoint(pygame.mouse.get_pos()))
+        render_button(algo2_button_rect, "MCTS vs Greedy", hover=algo2_button_rect.collidepoint(pygame.mouse.get_pos()))
+        render_button(algo3_button_rect, "MCTS vs Alpha-Beta Search", hover=algo3_button_rect.collidepoint(pygame.mouse.get_pos()))
 
         pygame.display.flip()
 
@@ -71,14 +70,10 @@ def open_file(file_path):
     subprocess.Popen([python_path, file_path])
 
 #Def to navigate to file of corresponding algorithms
-def open_chinese_chess_window(mode):
-    #print(algo_AI1)
-    if mode == "Greedy" and algo_AI1:
-        file_path = "ChineseChess.py" #Modify the right path here
-    if mode == "Alpha-Beta Search" and algo_AI1:
-        file_path = "ChineseChess.py" #Modify the right path here
-    elif mode == "MCTS" and algo_AI1:
-        file_path = "ChineseChess.py" #Mofidy the right path here
+def open_choosing_algo_AI_window(mode):
+    python_path = sys.executable
+    subprocess.run([python_path, "ChineseChessAI.py", mode])
+    file_path = "ChineseChessAI.py"
     open_file(file_path)
 
 def open_file(file_path):

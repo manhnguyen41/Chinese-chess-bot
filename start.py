@@ -65,7 +65,7 @@ def open_choosing_algo_window(mode):
     if mode == "AI - Human":
         subprocess.Popen([python_path, "ChooseAlgo.py", mode])
     elif mode == "AI - AI":
-        subprocess.Popen([python_path, "ChooseAlgoAI1.py", mode])
+        subprocess.Popen([python_path, "ChooseAlgoAI.py", mode])
 
 if __name__ == "__main__":
     start_screen()
