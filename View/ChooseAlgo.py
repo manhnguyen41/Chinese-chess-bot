@@ -51,7 +51,7 @@ def start_screen():
                     open_chinese_chess_window("Alpha-Beta Search")
                 if algo3_button_rect.collidepoint(event.pos):
                     running = False  
-                    open_chinese_chess_window("MCTS")
+                    open_chinese_chess_window("MCTSAlgorithm")
                 if algo4_button_rect.collidepoint(event.pos):
                     running = False
                     open_chinese_chess_window("Minimax")
@@ -62,7 +62,7 @@ def start_screen():
         # Draw and render buttons
         render_button(algo1_button_rect, "Greedy", hover=algo1_button_rect.collidepoint(pygame.mouse.get_pos()))
         render_button(algo2_button_rect, "Alpha-Beta Search", hover=algo2_button_rect.collidepoint(pygame.mouse.get_pos()))
-        render_button(algo3_button_rect, "MCTS", hover=algo3_button_rect.collidepoint(pygame.mouse.get_pos()))
+        render_button(algo3_button_rect, "MCTSAlgorithm", hover=algo3_button_rect.collidepoint(pygame.mouse.get_pos()))
         render_button(algo4_button_rect, "Minimax", hover=algo4_button_rect.collidepoint(pygame.mouse.get_pos()))
 
         pygame.display.flip()

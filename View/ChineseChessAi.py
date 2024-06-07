@@ -3,7 +3,7 @@ import pygame
 import sys
 
 from PIL import Image
-from Strategy.MCTS.mcts import *
+from Strategy.MCTSAlgorithm.mcts import *
 from Strategy.ABPruning.ABPruning import *
 
 # Initialize Pygame
@@ -311,13 +311,13 @@ def main():
             elapsed_time_player1 -= elapsed_time_player2
             time_left_player1 = max(time_limit - elapsed_time_player1, 0)
 
-            if algo == 'Greedy vs Alpha-Beta Search' or algo == 'MCTS vs Alpha-Beta Search':
+            if algo == 'Greedy vs Alpha-Beta Search' or algo == 'MCTSAlgorithm vs Alpha-Beta Search':
                 game_state = GameState(board)
                 bestmove = find_best_move(game_state,3,False)
                 game_state.next_state(bestmove[0],bestmove[1])
                 current_player = '2'
 
-            if algo == 'MCTS vs Greedy':
+            if algo == 'MCTSAlgorithm vs Greedy':
                 game_state = GameState(board)
                 new_state = greedy_best_move(1, game_state)
                 board = new_state.board
@@ -340,7 +340,7 @@ def main():
                 board = new_state.board
                 current_player = '1'
 
-            if algo == 'MCTS vs Alpha-Beta Search' or algo == 'MCTS vs Greedy':
+            if algo == 'MCTSAlgorithm vs Alpha-Beta Search' or algo == 'MCTSAlgorithm vs Greedy':
                 num_iterations = 100
                 game_state = GameState(board)
                 new_state = mcts(game_state, num_iterations)
@@ -360,7 +360,7 @@ def main():
             # game_state.next_state(bestmove[0],bestmove[1])
             # current_player = '1'
 
-            # # Chạy MCTS để tìm trạng thái tiếp theo tốt nhất
+            # # Chạy MCTSAlgorithm để tìm trạng thái tiếp theo tốt nhất
             # num_iterations = 500
             # game_state = GameState(board)
             # new_state = mcts(game_state, num_iterations)

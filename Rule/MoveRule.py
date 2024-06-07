@@ -197,7 +197,7 @@ def get_xiangqi_pawn_moves(current_pos, state, name):
                 pawn_moves.append((row, left_col))
             if check_board(row, right_col) and "2" not in color_position(state[row][right_col]) :
                 pawn_moves.append((row, right_col))
-            if  check_board(forward_row, col) and "2" not in color_position(state[forward_row][col]) :
+            if check_board(forward_row, col) and "2" not in color_position(state[forward_row][col]) :
                 pawn_moves.append((forward_row, col))
         if row < 5:
             if check_board(forward_row, col) and "2" not in color_position(state[forward_row][col]):

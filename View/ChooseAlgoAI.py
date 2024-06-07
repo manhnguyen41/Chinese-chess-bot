@@ -48,10 +48,10 @@ def start_screen():
                     open_choosing_algo_AI_window("Greedy vs Alpha-Beta Search")
                 if algo2_button_rect.collidepoint(event.pos):
                     running = False  
-                    open_choosing_algo_AI_window("MCTS vs Greedy")
+                    open_choosing_algo_AI_window("MCTSAlgorithm vs Greedy")
                 if algo3_button_rect.collidepoint(event.pos):
                     running = False  
-                    open_choosing_algo_AI_window("MCTS vs Alpha-Beta Search")
+                    open_choosing_algo_AI_window("MCTSAlgorithm vs Alpha-Beta Search")
                 if algo4_button_rect.collidepoint(event.pos):
                     running = False
                     open_choosing_algo_AI_window("Alpha-Beta vs Alpha-Beta")
@@ -61,8 +61,8 @@ def start_screen():
 
         # Draw and render buttons
         render_button(algo1_button_rect, "Greedy vs Alpha-Beta Search", hover=algo1_button_rect.collidepoint(pygame.mouse.get_pos()))
-        render_button(algo2_button_rect, "MCTS vs Greedy", hover=algo2_button_rect.collidepoint(pygame.mouse.get_pos()))
-        render_button(algo3_button_rect, "MCTS vs Alpha-Beta Search", hover=algo3_button_rect.collidepoint(pygame.mouse.get_pos()))
+        render_button(algo2_button_rect, "MCTSAlgorithm vs Greedy", hover=algo2_button_rect.collidepoint(pygame.mouse.get_pos()))
+        render_button(algo3_button_rect, "MCTSAlgorithm vs Alpha-Beta Search", hover=algo3_button_rect.collidepoint(pygame.mouse.get_pos()))
         render_button(algo4_button_rect, "Alpha-Beta vs Alpha-Beta", hover=algo4_button_rect.collidepoint(pygame.mouse.get_pos()))
 
         pygame.display.flip()

@@ -4,7 +4,7 @@ import sys
 
 from Strategy.Minimax.Minimax import find_best_move_minimax
 from PIL import Image
-from Strategy.MCTS.mcts import *
+from Strategy.MCTSAlgorithm.mcts import *
 from Strategy.ABPruning.ABPruning import *
 
 # Initialize Pygame
@@ -322,7 +322,7 @@ def main():
                 board = new_state.board
                 current_player = '1'
 
-            if algo == 'MCTS':
+            if algo == 'MCTSAlgorithm':
                 num_iterations = 50
                 game_state = GameState(board)
                 new_state = mcts(game_state, num_iterations)
