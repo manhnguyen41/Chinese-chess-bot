@@ -21,9 +21,10 @@ backgroundHeight = 700
 backgroundImage = pygame.transform.scale(backgroundImage, (backgroundWidth, backgroundHeight))
 
 # Button rects
-algo1_button_rect = pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT // 3 - BUTTON_HEIGHT // 2), (BUTTON_WIDTH, BUTTON_HEIGHT))
-algo2_button_rect = pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT // 2 - BUTTON_HEIGHT // 2), (BUTTON_WIDTH, BUTTON_HEIGHT))
-algo3_button_rect = pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT // 1.5 - BUTTON_HEIGHT // 2), (BUTTON_WIDTH, BUTTON_HEIGHT))
+algo1_button_rect = pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT // 3 - BUTTON_HEIGHT ), (BUTTON_WIDTH, BUTTON_HEIGHT))
+algo2_button_rect = pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT // 2 - BUTTON_HEIGHT ), (BUTTON_WIDTH, BUTTON_HEIGHT))
+algo3_button_rect = pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT // 1.5 - BUTTON_HEIGHT ), (BUTTON_WIDTH, BUTTON_HEIGHT))
+algo4_button_rect = pygame.Rect((WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT // 1.2 - BUTTON_HEIGHT ), (BUTTON_WIDTH, BUTTON_HEIGHT))
 
 # Initialize font
 font = pygame.font.Font(None, 34)
@@ -59,6 +60,7 @@ def start_screen():
         render_button(algo1_button_rect, "Greedy", hover=algo1_button_rect.collidepoint(pygame.mouse.get_pos()))
         render_button(algo2_button_rect, "Alpha-Beta Search", hover=algo2_button_rect.collidepoint(pygame.mouse.get_pos()))
         render_button(algo3_button_rect, "MCTS", hover=algo3_button_rect.collidepoint(pygame.mouse.get_pos()))
+        render_button(algo4_button_rect, "Minimax", hover=algo4_button_rect.collidepoint(pygame.mouse.get_pos()))
 
         pygame.display.flip()
 
