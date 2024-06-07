@@ -319,13 +319,13 @@ def main():
 
 
 
-            # Chạy greedy để tìm trạng thái tiếp theo tốt nhất
-            
-
-            new_state = greedy_best_move(2, game_state)
-            board = new_state.board
+            # Chạy MCTS để tìm trạng thái tiếp theo tốt nhất
+            num_iterations = 500
+            game_state = GameState(board)
+            new_state = mcts(game_state, num_iterations)
+            new_board = new_state.board
+            board = new_board
             current_player = '1'
-            
 
 
 
