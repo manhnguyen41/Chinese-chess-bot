@@ -50,8 +50,8 @@ def load_images(folder):
 
 
 # Load images for pieces
-home_pieces = load_images("image/1")
-away_pieces = load_images("image/-1")
+home_pieces = load_images("View/image/1")
+away_pieces = load_images("View/image/-1")
 
 
 # Function to draw the board
@@ -113,9 +113,9 @@ def draw_pieces(board):
 
 
 # Load images for avatar
-AI_player_avatar = pygame.image.load("avatar/robot_avatar.png").convert_alpha()
+AI_player_avatar = pygame.image.load("View/avatar/robot_avatar.png").convert_alpha()
 AI_player_avatar = pygame.transform.scale(AI_player_avatar, (PLAYER_AVATAR_SIZE, PLAYER_AVATAR_SIZE))
-human_player_avatar = pygame.image.load("avatar/player.jpg").convert_alpha()
+human_player_avatar = pygame.image.load("View/avatar/player.jpg").convert_alpha()
 human_player_avatar = pygame.transform.scale(human_player_avatar, (PLAYER_AVATAR_SIZE, PLAYER_AVATAR_SIZE))
 
 # Load line text "player" below avatar
@@ -311,13 +311,13 @@ def main():
             elapsed_time_player1 -= elapsed_time_player2
             time_left_player1 = max(time_limit - elapsed_time_player1, 0)
 
-            if algo == 'Greedy vs Alpha-Beta Search' or algo == 'MCTSAlgorithm vs Alpha-Beta Search':
+            if algo == 'Greedy vs Alpha-Beta Search' or algo == 'MCTS vs Alpha-Beta Search':
                 game_state = GameState(board)
                 bestmove = find_best_move(game_state,3,False)
                 game_state.next_state(bestmove[0],bestmove[1])
                 current_player = '2'
 
-            if algo == 'MCTSAlgorithm vs Greedy':
+            if algo == 'MCTS vs Greedy':
                 game_state = GameState(board)
                 new_state = greedy_best_move(1, game_state)
                 board = new_state.board
@@ -340,7 +340,7 @@ def main():
                 board = new_state.board
                 current_player = '1'
 
-            if algo == 'MCTSAlgorithm vs Alpha-Beta Search' or algo == 'MCTSAlgorithm vs Greedy':
+            if algo == 'MCTS vs Alpha-Beta Search' or algo == 'MCTS vs Greedy':
                 num_iterations = 100
                 game_state = GameState(board)
                 new_state = mcts(game_state, num_iterations)
@@ -360,7 +360,7 @@ def main():
             # game_state.next_state(bestmove[0],bestmove[1])
             # current_player = '1'
 
-            # # Chạy MCTSAlgorithm để tìm trạng thái tiếp theo tốt nhất
+            # # Chạy MCTS để tìm trạng thái tiếp theo tốt nhất
             # num_iterations = 500
             # game_state = GameState(board)
             # new_state = mcts(game_state, num_iterations)

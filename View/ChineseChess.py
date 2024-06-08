@@ -51,8 +51,8 @@ def load_images(folder):
 
 
 # Load images for pieces
-home_pieces = load_images("image/1")
-away_pieces = load_images("image/-1")
+home_pieces = load_images("View/image/1")
+away_pieces = load_images("View/image/-1")
 
 
 # Function to draw the board
@@ -114,9 +114,9 @@ def draw_pieces(board):
 
 
 # Load images for avatar
-AI_player_avatar = pygame.image.load("avatar/robot_avatar.png").convert_alpha()
+AI_player_avatar = pygame.image.load("View/avatar/robot_avatar.png").convert_alpha()
 AI_player_avatar = pygame.transform.scale(AI_player_avatar, (PLAYER_AVATAR_SIZE, PLAYER_AVATAR_SIZE))
-human_player_avatar = pygame.image.load("avatar/player.jpg").convert_alpha()
+human_player_avatar = pygame.image.load("View/avatar/player.jpg").convert_alpha()
 human_player_avatar = pygame.transform.scale(human_player_avatar, (PLAYER_AVATAR_SIZE, PLAYER_AVATAR_SIZE))
 
 # Load line text "player" below avatar
@@ -322,7 +322,7 @@ def main():
                 board = new_state.board
                 current_player = '1'
 
-            if algo == 'MCTSAlgorithm':
+            if algo == 'MCTS':
                 num_iterations = 50
                 game_state = GameState(board)
                 new_state = mcts(game_state, num_iterations)
